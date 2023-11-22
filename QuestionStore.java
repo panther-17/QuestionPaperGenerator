@@ -1,29 +1,23 @@
-import java.util.ArrayList;
-import java.util.List;
+public class Main {
 
-public class QuestionStore {
+    public static void main(String[] args) {
+        QuestionStore questionStore = new QuestionStore();
 
-    private List<Question> questions;
+        questionStore.addQuestion(new Question("What is the speed of light", "Physics", "Waves", "Easy", 5));
+        questionStore.addQuestion(new Question("What is the law of gravitation", "Physics", "Motion", "Medium", 10));
+        questionStore.addQuestion(new Question("What is the chemical formula for water", "Chemistry", "Inorganic Chemistry", "Hard", 15));
 
-    public QuestionStore() {
-        this.questions = new ArrayList<>();
-    }
+        HashMap<String, Integer> difficultyDistribution = new HashMap<>();
+        difficultyDistribution.put("Easy", 20);
+        difficultyDistribution.put("Medium", 50);
+        difficultyDistribution.put("Hard", 30);
 
-    public void addQuestion(Question question) {
-        this.questions.add(question);
-    }
+        QuestionPaperGenerator questionPaperGenerator = new QuestionPaperGenerator(questionStore);
+        List<Question> questionPaper = questionPaperGenerator.generateQuestionPaper(100, difficultyDistribution);
 
-    public List<Question> getQuestions() {
-        return questions;
-    }
-
-    public List<Question> getQuestionsByDifficulty(String difficulty) {
-        List<Question> filteredQuestions = new ArrayList<>();
-        for (Question question : questions) {
-            if (question.getDifficulty().equals(difficulty)) {
-                filteredQuestions.add(question);
-            }
+        for (Question question : questionPaper) {
+            System.out.println(question);
         }
-        return filteredQuestions;
     }
 }
+
